@@ -1,21 +1,19 @@
 .blog-placeholder-svg {
   height: 100%;
 }
-
-@media screen and (min-width: 990px) {
-  .grid--1-col-desktop .article-card .card__content {
-    text-align: center;
-  }
+.blog__posts{
+  display:flex;
+  flex-wrap: wrap;
 }
-
-.blog__title {
-  margin: 0;
+.blog__posts .blog__post{
+  padding: 10px;
 }
-
-.blog__posts.articles-wrapper {
-  margin-bottom: 1rem;
+.blog__posts .blog__half{
+  width: 50%;
 }
-
+.blog__posts .blog__third{
+  width: 33.33%;
+}
 @media screen and (min-width: 990px) {
   .blog__posts.articles-wrapper {
     margin-bottom: 0;
