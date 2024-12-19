@@ -44,7 +44,7 @@
         "heading": "",
         "heading_size": "h1",
         "blog": "",
-        "post_limit": 15,
+        "post_limit": 4,
         "color_scheme": "scheme-bf0d1e82-aa74-46fa-b7af-a6e6ec82a160",
         "show_image": true,
         "show_date": true,
