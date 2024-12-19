@@ -44,12 +44,12 @@
         "heading": "",
         "heading_size": "h1",
         "blog": "",
-        "post_limit": 4,
+        "post_limit": 15,
         "color_scheme": "scheme-bf0d1e82-aa74-46fa-b7af-a6e6ec82a160",
         "show_image": true,
         "show_date": true,
         "show_author": false,
-        "show_view_all": true,
+        "show_view_all": false,
         "padding_top": 36,
         "padding_bottom": 36
       }
