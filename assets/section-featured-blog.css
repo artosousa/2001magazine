@@ -1,19 +1,24 @@
 .blog-placeholder-svg {
   height: 100%;
 }
-.blog__posts{
-  display:flex;
+
+.blog__posts {
+  display: flex;
   flex-wrap: wrap;
 }
-.blog__posts .blog__post{
+
+.blog__posts .blog__post {
   padding: 10px;
 }
-.blog__posts .blog__half{
+
+.blog__posts .blog__half {
   width: 50%;
 }
-.blog__posts .blog__third{
+
+.blog__posts .blog__third {
   width: 33.33%;
 }
+
 @media screen and (min-width: 990px) {
   .blog__posts.articles-wrapper {
     margin-bottom: 0;
@@ -51,8 +56,12 @@
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {
   @media screen and (min-width: 750px) {
-    .blog__posts .article + .article {
+    .blog__posts .article+.article {
       margin-left: var(--grid-desktop-horizontal-spacing);
     }
   }
+}
+
+.blog__posts.articles-wrapper {
+  padding-left: 0px !important;
 }
