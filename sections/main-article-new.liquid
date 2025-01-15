@@ -2,7 +2,23 @@
 {{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
 {% liquid 
     assign sub_title = article.metafields.custom.blog_subtitle
+
+    assign first_image_start = article.content | split: '<img' 
+    assign first_image_rest = first_image_start[1] | split: '>'
+    assign first_image_tag = '<img' | append: first_image_rest[0] | append: '>'
+
+    assign remaining_after_image = first_image_rest | slice: 1, first_image_rest.size | join: '>' 
+    assign content_after_image = remaining_after_image | append: first_image_start | slice: 2  
+
+    assign product_gid = article.metafields.custom.blog_post_product
+    assign product_id = product_gid | split: '/' | last | times: 1
 %}
+
+{% for product in collections.all.products %}
+  {% if product_id == product.id  %}
+    {% assign article_product = product %}
+  {% endif %}
+{% endfor %}
 
 <article class="article-template new-article">
   {%- for block in section.blocks -%}
@@ -12,7 +28,6 @@
           {% render block %}
         </div>
       
-
       {%- when 'title' -%}
         <header
           class="page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
@@ -39,26 +54,59 @@
         </header>
 
       {%- when 'content' -%}
+        
         <div
           class="article-template__content page-width rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
           {{ block.shopify_attributes }}
         >
+          {% if article_product != blank %}
+            <div class="issue_hero">
+              <div class="cover">
+                <a href="{{ article_product.url }}" title="{{ article_product.title }}" aria-label="Issue Link">
+                  <img
+                    srcset="
+                      {%- if article_product.featured_image.width >= 165 -%}{{ article_product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+                      {%- if article_product.featured_image.width >= 360 -%}{{ article_product.featured_image | image_url: width: 360 }} 360w,{%- endif -%}
+                      {%- if article_product.featured_image.width >= 533 -%}{{ article_product.featured_image | image_url: width: 533 }} 533w,{%- endif -%}
+                      {%- if article_product.featured_image.width >= 720 -%}{{ article_product.featured_image | image_url: width: 720 }} 720w,{%- endif -%}
+                      {%- if article_product.featured_image.width >= 1000 -%}{{ article_product.featured_image | image_url: width: 1000 }} 1000w,{%- endif -%}
+                      {%- if article_product.featured_image.width >= 1500 -%}{{ article_product.featured_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {{ article_product.featured_image | image_url }} {{ article_product.featured_image.width }}w
+                    "
+                    src="{{ article_product.featured_image | image_url: width: 533 }}"
+                    sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+                    alt="{{ article_product.featured_image.alt | escape }}"
+                    class="motion-reduce"
+                    {% unless lazy_load == false %}
+                      loading="lazy"
+                    {% endunless %}
+                    width="{{ article.image.width }}"
+                    height="{{ article.image.height }}"
+                  >
+                </a>
+              </div>
+              <div class="info">
+                <a href="{{ article_product.url }}" title="{{ article_product.title }}" aria-label="Issue Link">
+                  <h2>{{ article_product.title }}</h2>
+                  
+                </a>
+                <span class="price-item price-item--regular">{{ article_product.price | money_with_currency }}</span><br/>
+                <a href="{{ article_product.url }}" title="{{ article_product.title }}" aria-label="Issue Link">
+                  BUY NOW
+                </a>
+    
+              </div>
+            </div>
+          {% endif %}
           {{ article.content }}
         </div>
 
-      {%- when 'share' -%}
-        <div
-          class="article-template__social-sharing page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {{ block.shopify_attributes }}
-        >
-          {% assign share_url = request.origin | append: article.url %}
-          {% render 'share-button', block: block, share_link: share_url %}
-        </div>
+      
     {%- endcase -%}
   {%- endfor -%}
 
   <div class="article-template__back element-margin-top center{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    <a href="{{ blog.url }}" class="article-template__link link animate-arrow">
+    <a href="{{ shop.url }}" class="article-template__link link animate-arrow">
       <span class="icon-wrap">
         <span class="svg-wrapper">
           {{- 'icon-arrow.svg' | inline_asset_content -}}

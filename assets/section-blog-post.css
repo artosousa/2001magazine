@@ -88,6 +88,7 @@
 }
 
 .article-template__content {
+  position: relative;
   margin-top: 3rem;
   margin-bottom: 3rem;
 }
@@ -203,6 +204,29 @@
 }
 
 
+
+.article-template__content .issue_hero {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background: #efd701;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.article-template__content .issue_hero .cover a img {
+  margin: 0 !important;
+}
+
+
 @media screen and (min-width: 750px) {
   .new-article .article-template__title {
     font-family: sans-serif;
@@ -213,11 +237,16 @@
 
   .new-article .article-template__sub-title {
     font-size: 6.5rem;
-    line-height: 6rem;
+    line-height: 7rem;
     font-family: Times, serif;
   }
 
   .new-article header {
     margin-bottom: 10rem;
+  }
+
+  .article-template__content .issue_hero {
+    position: absolute;
+    max-width: 420px;
   }
 }
