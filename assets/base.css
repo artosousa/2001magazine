@@ -9,6 +9,11 @@
 }
 
 @font-face {
+  font-family: "Lyon Bold";
+  src: url("{{ 'LyonBold.otf' | asset_url }}") format("opentype");
+}
+
+@font-face {
   font-family: "Basis";
   src: url("https://cdn.shopify.com/s/files/1/0734/4439/3179/files/BasisGrotesqueArabicPro-Regular.otf?v=1737084853");
 }
@@ -3625,6 +3630,12 @@ details-disclosure>details {
 p,
 .article-template__title {
   font-family: "Lyon" !important;
+}
+
+.card__heading strong,
+p strong,
+.article-template__title strong {
+  font-family: "Lyon Bold" !important;
 }
 
 .article-template__sub-title,
